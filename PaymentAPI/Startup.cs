@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using PaymentAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -37,6 +39,13 @@ namespace PaymentAPI
 
             services.AddDbContext<PaymentDetailContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                options.JsonSerializerOptions.DictionaryKeyPolicy = null;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
